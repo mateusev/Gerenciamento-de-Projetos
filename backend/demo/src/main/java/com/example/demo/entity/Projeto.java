@@ -28,7 +28,7 @@ public class Projeto {
         this.dataCriacao = LocalDate.now();
     }
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private java.util.List atividades = new java.util.ArrayList<>();
+    private java.util.List<Atividade> atividades = new java.util.ArrayList<>();
 
     //início dos getters e setters
     public Long getId() {return this.id;}
@@ -46,5 +46,5 @@ public class Projeto {
     public void setDataUltimaModificacao (LocalDateTime dataUltimaModificacao) {this.dataUltimaModificacao = dataUltimaModificacao;}
 
     public java.util.List getAtividades() {return this.atividades;}
-    public void setAtividades(java.util.List atividades) {this.atividades = atividades;}
+    public void setAtividades(java.util.List<Atividade> atividades) {this.atividades = atividades;}
 }
