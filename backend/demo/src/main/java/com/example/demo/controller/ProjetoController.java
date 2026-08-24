@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Atividade;
+import com.example.demo.entity.Risco;
 import com.example.demo.repository.AtividadeRepository;
 import com.example.demo.entity.Projeto;
 import com.example.demo.service.ProjetoService;
@@ -59,6 +60,20 @@ public class ProjetoController {
         //busca do projeto existente no banco
         Projeto projeto = projetoService.buscarPorId(id);
         projeto.adicionarAtividade(atividade);
+
+        Projeto projetoAtualizado = projetoService.salvar(projeto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(projetoAtualizado);
+    }
+
+    @PostMapping("/{id}/riscos")
+    public ResponseEntity<Projeto> adicionarRisco(
+            @PathVariable Long id,
+            @RequestBody Risco risco
+            ) {
+        //busca quem é o projeto pai desse risco que iremos adicionar
+        Projeto projeto = projetoService.buscarPorId(id);
+        projeto.adicionarRisco(risco);
 
         Projeto projetoAtualizado = projetoService.salvar(projeto);
 
