@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Atividade;
 import com.example.demo.repository.AtividadeRepository;
 import com.example.demo.entity.Projeto;
 import com.example.demo.service.ProjetoService;
@@ -21,7 +22,7 @@ public class ProjetoController {
         this.projetoService = projetoService;
     }
 
-    //Criação dos ENDPOINTS
+    //Criação dos ENDPOINTS de Projeto
 
     @GetMapping
     public ResponseEntity listarTodos(){
@@ -47,4 +48,21 @@ public class ProjetoController {
         projetoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Criação dos Endpoints da entidade Atividade
+
+    @PostMapping("/{id}/atividades")
+    public ResponseEntity adicionarAtividade(
+            @PathVariable Long id,
+            @RequestBody Atividade atividade
+            ) {
+        //busca do projeto existente no banco
+        Projeto projeto = projetoService.buscarPorId(id);
+        projeto.adicionarAtividade(atividade);
+
+        Projeto projetoAtualizado = projetoService.salvar(projeto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(projetoAtualizado);
+    }
+
 }
