@@ -10,6 +10,8 @@ export interface Projeto {
   descricao: string
   dataCriacao: string
   dataUltimaModificacao: string
+  atividades?: Atividade[]
+  riscos?: Risco[]
 }
 
 export interface Risco {
